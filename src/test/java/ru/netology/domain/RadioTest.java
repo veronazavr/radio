@@ -66,7 +66,7 @@ class RadioTest {
     }
 
     @Test
-    public void remoteCurrentStationUndereMinStation(){
+    public void remoteCurrentUndereMinStation(){
         Radio radio = new Radio();
         radio.setMaxStation(9);
         radio.setMinStation(0);
@@ -74,6 +74,80 @@ class RadioTest {
         radio.remoteCurrentStation(-1);
         assertEquals(0,radio.getCurrentStation());
     }
+    @Test
+    public void nextCurrentVolNormalVol(){
+    Radio radio = new Radio();
+    radio.setMaxVolume(10);
+    radio.setMinVolume(0);
+    radio.setCurrentVolume(2);
+    radio.nextCurrentVolume();
+    assertEquals(3,radio.getCurrentVolume());
+}
 
+    @Test
+    public void nextCurrentVolMaxBorderVol(){
+        Radio radio = new Radio();
+        radio.setMaxVolume(10);
+        radio.setMinVolume(0);
+        radio.setCurrentVolume(10);
+        radio.nextCurrentVolume();
+        assertEquals(10, radio.getCurrentVolume());
+    }
+
+    @Test
+    public void prevCurrentVolNormalVol(){
+        Radio radio = new Radio();
+        radio.setMaxVolume(10);
+        radio.setMinVolume(0);
+        radio.setCurrentVolume(2);
+        radio.prevCurrentVolume();
+        assertEquals(1,radio.getCurrentVolume());
+    }
+
+    @Test
+    public void prevCurrentVolMinBorderVol(){
+        Radio radio = new Radio();
+        radio.setMaxVolume(10);
+        radio.setMinVolume(0);
+        radio.setCurrentVolume(0);
+        radio.prevCurrentVolume();
+        assertEquals(0, radio.getCurrentVolume());
+    }
+
+
+    @Test
+    public void setMaxVol(){
+        Radio radio = new Radio();
+        radio.setMaxVolume(10);
+        assertEquals(10,radio.getMaxVolume());
+    }
+
+    @Test
+    public void setMinVol(){
+        Radio radio = new Radio();
+        radio.setMinVolume(0);
+        assertEquals(0,radio.getMinVolume());
+    }
+
+    @Test
+    public void setCurrentVolumeOverMaxVol(){
+        Radio radio = new Radio();
+        radio.setMaxVolume(10);
+        radio.setMinVolume(0);
+        radio.setCurrentVolume(2);
+        radio.setCurrentVolume(15);
+        assertEquals(2, radio.getCurrentVolume());
+    }
+
+    @Test
+    public void setCurrentVolumeUnderMinVol(){
+        Radio radio = new Radio();
+        radio.setMaxVolume(10);
+        radio.setMinVolume(0);
+        radio.setCurrentVolume(2);
+        radio.setCurrentVolume(-1);
+        assertEquals(2, radio.getCurrentVolume());
+    }
 
 }
+
